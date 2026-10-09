@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shiuli/pages/calendar_page.dart';
+import 'package:shiuli/pages/home_page.dart';
+import 'package:shiuli/pages/new_task_page.dart';
+import 'package:shiuli/pages/profile_page.dart';
 import 'package:shiuli/theme.dart';
 
 void main() {
@@ -19,33 +23,49 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainHome extends StatelessWidget {
+class MainHome extends StatefulWidget {
   const MainHome({super.key});
 
   @override
+  State<MainHome> createState() => _MainHomeState();
+}
+
+class _MainHomeState extends State<MainHome> {
+  final List<Widget> _pages = [HomePage(), CalendarPage(), ProfilePage()];
+  int _currentIndex = 0;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("hai 🌸"),
-      ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: .center,
-          children: [
-            const Text('home page'),
-          ],
-        ),
+        child: _pages[_currentIndex]
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_month_outlined), label: "Calendar"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month_outlined),
+            label: "Calendar",
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
+        onTap: (value) {
+          setState(() {
+            _currentIndex = value;
+          });
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return const NewTaskPage();
+              },
+            ),
+          );
+        },
         tooltip: 'New Task',
         child: const Icon(Icons.add),
       ),
