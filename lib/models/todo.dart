@@ -23,7 +23,7 @@ extension TodoCategoryExtension on TodoCategory {
       case "Personal":
         return TodoCategory.personal;
       default:
-        throw ArgumentError("Invalid TaskCategory");
+        throw ArgumentError("Invalid TodoCategory");
     }
   }
 }
@@ -49,7 +49,7 @@ extension TodoPriorityExtension on TodoPriority {
       case "High":
         return TodoPriority.high;
       default:
-        throw ArgumentError("Invalid TaskPriority");
+        throw ArgumentError("Invalid TodoPriority");
     }
   }
 }
@@ -119,5 +119,26 @@ class Todo {
       priorityField: priority.name,
       completedField: completed ? 1 : 0,
     };
+  }
+
+  Todo copyWith({
+    int? id,
+    String? title,
+    String? description,
+    DateTime? dateTime,
+    TodoCategory? category,
+    TodoPriority? priority,
+    bool? completed,
+  }
+  ) {
+    return Todo(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      dateTime: dateTime ?? this.dateTime,
+      category: category ?? this.category,
+      priority: priority ?? this.priority,
+      completed: completed ?? this.completed
+    );
   }
 }

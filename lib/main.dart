@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shiuli/pages/calendar_page.dart';
 import 'package:shiuli/pages/home_page.dart';
-import 'package:shiuli/pages/new_task_page.dart';
+import 'package:shiuli/pages/new_todo_page.dart';
 import 'package:shiuli/pages/profile_page.dart';
 import 'package:shiuli/theme.dart';
 
@@ -36,9 +36,7 @@ class _MainHomeState extends State<MainHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _pages[_currentIndex]
-      ),
+      body: Center(child: _pages[_currentIndex]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         items: [
@@ -61,12 +59,12 @@ class _MainHomeState extends State<MainHome> {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return const NewTaskPage();
+                return const NewTodoPage();
               },
             ),
           );
         },
-        tooltip: 'New Task',
+        tooltip: 'New Todo',
         child: const Icon(Icons.add),
       ),
     );
