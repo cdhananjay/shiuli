@@ -32,6 +32,7 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
   TodoCategory _selectedCategory = TodoCategory.work;
+  TodoPriority _selectedPriority = TodoPriority.medium;
   String get _date {
     List<String> months = [
       "Jan",
@@ -211,6 +212,51 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
                       onSelected: (value) {
                         setState(() {
                           _selectedCategory = cat;
+                        });
+                      },
+                      selectedColor: AppColors.primary,
+                      checkmarkColor: Colors.white,
+                      side: BorderSide(color: AppColors.border),
+                    );
+                  }).toList(),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 8),
+            child: Text(
+              "Priority",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: AppTheme.lightTheme.primaryColor,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children:
+                  [
+                    TodoPriority.low,
+                    TodoPriority.medium,
+                    TodoPriority.high,
+                  ].map((prio) {
+                    return ChoiceChip(
+                      label: Text(
+                        prio.name,
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: _selectedPriority == prio
+                              ? Colors.white
+                              : AppColors.textPrimary,
+                        ),
+                      ),
+                      selected: _selectedPriority == prio,
+                      onSelected: (value) {
+                        setState(() {
+                          _selectedPriority = prio;
                         });
                       },
                       selectedColor: AppColors.primary,
