@@ -81,7 +81,7 @@ const String textType = "TEXT NOT NULL";
 
 class Todo {
   Todo({
-    required this.id,
+    this.id,
     required this.title,
     required this.description,
     required this.dateTime,
@@ -89,7 +89,7 @@ class Todo {
     required this.priority,
     required this.completed,
   });
-  final int id;
+  final int? id;
   final String title;
   final String description;
   final DateTime dateTime;
