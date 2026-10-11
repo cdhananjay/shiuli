@@ -28,7 +28,7 @@ class AppDatabase {
     CREATE TABLE $tableName (
       $idField $idType,
       $titleField $textType,
-      $descriptionField $textType
+      $descriptionField $textType,
       $dateTimeField $textType,
       $categoryField $textType,
       $priorityField $textType,
