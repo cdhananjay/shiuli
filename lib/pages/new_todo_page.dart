@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shiuli/constants.dart';
+import 'package:shiuli/models/todo.dart';
 import 'package:shiuli/theme.dart';
 
 class NewTodoPage extends StatelessWidget {
@@ -28,6 +31,7 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
   final descriptionController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
+  TodoCategory _selectedCategory = TodoCategory.work;
   String get _date {
     List<String> months = [
       "Jan",
@@ -170,6 +174,51 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
                 ],
               ),
             ],
+          ),
+          Padding(
+            padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 8),
+            child: Text(
+              "Category",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: AppTheme.lightTheme.primaryColor,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children:
+                  [
+                    TodoCategory.learning,
+                    TodoCategory.work,
+                    TodoCategory.personal,
+                  ].map((cat) {
+                    return ChoiceChip(
+                      label: Text(
+                        cat.name,
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: _selectedCategory == cat
+                              ? Colors.white
+                              : AppColors.textPrimary,
+                        ),
+                      ),
+                      selected: _selectedCategory == cat,
+                      onSelected: (value) {
+                        setState(() {
+                          _selectedCategory = cat;
+                        });
+                      },
+                      selectedColor: AppColors.primary,
+                      checkmarkColor: Colors.white,
+                      side: BorderSide(color: AppColors.border),
+                    );
+                  }).toList(),
+            ),
           ),
         ],
       ),
