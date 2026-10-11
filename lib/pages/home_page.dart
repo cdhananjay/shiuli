@@ -13,6 +13,7 @@ class HomePage extends StatelessWidget {
     }
     return "Winding down? 🌙";
   }
+
   String get _appBarSubtitle {
     final timeOfDay = TimeOfDay.now();
     if (timeOfDay.hour >= 3 && timeOfDay.hour < 12) {
@@ -32,18 +33,8 @@ class HomePage extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              _appBarTitle,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              _appBarSubtitle,
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
+            Text(_appBarTitle, style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(_appBarSubtitle, style: TextStyle(fontSize: 16)),
           ],
         ),
       ),

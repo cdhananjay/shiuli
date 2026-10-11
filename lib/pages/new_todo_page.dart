@@ -35,11 +35,14 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0,10.0,3),
-            child: Text("Todo Title", textAlign: TextAlign.left,
-              style: TextStyle(color: AppTheme.lightTheme.primaryColor, 
+            padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
+            child: Text(
+              "Todo Title",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: AppTheme.lightTheme.primaryColor,
                 fontSize: 20,
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -51,11 +54,14 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0,10.0,3),
-            child: Text("Description", textAlign: TextAlign.left,
-              style: TextStyle(color: AppTheme.lightTheme.primaryColor, 
+            padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
+            child: Text(
+              "Description",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: AppTheme.lightTheme.primaryColor,
                 fontSize: 20,
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),

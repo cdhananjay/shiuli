@@ -129,8 +129,7 @@ class Todo {
     TodoCategory? category,
     TodoPriority? priority,
     bool? completed,
-  }
-  ) {
+  }) {
     return Todo(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -138,7 +137,7 @@ class Todo {
       dateTime: dateTime ?? this.dateTime,
       category: category ?? this.category,
       priority: priority ?? this.priority,
-      completed: completed ?? this.completed
+      completed: completed ?? this.completed,
     );
   }
 }
