@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shiuli/constants.dart';
+import 'package:shiuli/db.dart';
 import 'package:shiuli/models/todo.dart';
 import 'package:shiuli/theme.dart';
 
@@ -26,8 +27,8 @@ class NewTodoPageBody extends StatefulWidget {
 }
 
 class _NewTodoPageBodyState extends State<NewTodoPageBody> {
-  final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
   TodoCategory _selectedCategory = TodoCategory.work;
@@ -78,7 +79,7 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
                   decoration: InputDecoration(
                     hintText: "What needs to be done?",
                   ),
-                  controller: titleController,
+                  controller: _titleController,
                 ),
               ),
               Padding(
@@ -97,7 +98,7 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 10.0),
                 child: TextField(
                   decoration: InputDecoration(hintText: "Add more details..."),
-                  controller: descriptionController,
+                  controller: _descriptionController,
                 ),
               ),
               Row(
@@ -285,7 +286,66 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 8, 8, 12),
             child: FilledButton(
-              onPressed: () {},
+              onPressed: () {
+                if (_titleController.text.isEmpty ||
+                    _titleController.text.trim() == "") {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text(
+                          "Title cannot be empty.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        actionsAlignment: MainAxisAlignment.center,
+                        contentPadding: EdgeInsets.fromLTRB(10, 12, 10, 12),
+                        actionsPadding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text('Okay'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  return;
+                }
+                if (_descriptionController.text.isEmpty ||
+                    _descriptionController.text.trim() == "") {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text(
+                          "Description cannot be empty.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        actionsAlignment: MainAxisAlignment.center,
+                        contentPadding: EdgeInsets.fromLTRB(10, 12, 10, 12),
+                        actionsPadding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text('Okay'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  return;
+                }
+                _saveTodo();
+                Navigator.pop(context);
+              },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -305,6 +365,25 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Future<void> _saveTodo() async {
+    AppDatabase.instance.createTodo(
+      Todo(
+        title: _titleController.text,
+        description: _descriptionController.text,
+        category: _selectedCategory,
+        priority: _selectedPriority,
+        dateTime: DateTime(
+          _selectedDate.year,
+          _selectedDate.month,
+          _selectedDate.day,
+          _selectedTime.hour,
+          _selectedTime.minute,
+        ),
+        completed: false,
       ),
     );
   }
