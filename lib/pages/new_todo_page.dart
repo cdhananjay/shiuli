@@ -26,6 +26,24 @@ class NewTodoPageBody extends StatefulWidget {
 class _NewTodoPageBodyState extends State<NewTodoPageBody> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
+  String get _date {
+    List<String> months = [
+      "Jan",
+      "Feb",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    return "${months[_selectedDate.month - 1]} ${_selectedDate.day}, ${_selectedDate.year}";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +88,29 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
             child: TextField(
               decoration: InputDecoration(hintText: "Add more details..."),
               controller: descriptionController,
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return CalendarDatePicker(
+                    initialDate: _selectedDate,
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2100),
+                    onDateChanged: (value) {
+                      setState(() {
+                        _selectedDate = value;
+                      });
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              );
+            },
+            child: Row(
+              children: [Icon(Icons.calendar_month_outlined), Text(_date)],
             ),
           ),
         ],
