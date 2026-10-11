@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shiuli/constants.dart';
 import 'package:shiuli/models/todo.dart';
@@ -56,214 +55,253 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
-            child: Text(
-              "Todo Title",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: AppTheme.lightTheme.primaryColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 10.0),
-            child: TextField(
-              decoration: InputDecoration(hintText: "What needs to be done?"),
-              controller: titleController,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
-            child: Text(
-              "Description",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: AppTheme.lightTheme.primaryColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 10.0),
-            child: TextField(
-              decoration: InputDecoration(hintText: "Add more details..."),
-              controller: descriptionController,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
-                    child: Text(
-                      "Date",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: AppTheme.lightTheme.primaryColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+              Padding(
+                padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
+                child: Text(
+                  "Todo Title",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: AppTheme.lightTheme.primaryColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  FilledButton(
-                    onPressed: () async {
-                      _showDatePicker();
-                    },
-                    child: Row(
-                      children: [
-                        Icon(Icons.calendar_month_outlined, size: 20),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            _date,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 10.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "What needs to be done?",
+                  ),
+                  controller: titleController,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
+                child: Text(
+                  "Description",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: AppTheme.lightTheme.primaryColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 10.0),
+                child: TextField(
+                  decoration: InputDecoration(hintText: "Add more details..."),
+                  controller: descriptionController,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsGeometry.fromLTRB(
+                          10.0,
+                          10.0,
+                          10.0,
+                          3,
+                        ),
+                        child: Text(
+                          "Date",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: AppTheme.lightTheme.primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      FilledButton(
+                        onPressed: () async {
+                          _showDatePicker();
+                        },
+                        child: Row(
+                          children: [
+                            Icon(Icons.calendar_month_outlined, size: 20),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                _date,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsGeometry.fromLTRB(
+                          10.0,
+                          10.0,
+                          10.0,
+                          3,
+                        ),
+                        child: Text(
+                          "Time",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: AppTheme.lightTheme.primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      FilledButton(
+                        onPressed: () async {
+                          _showTimePicker();
+                        },
+                        child: Row(
+                          children: [
+                            Icon(Icons.watch_later_outlined, size: 20),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                _selectedTime.format(context),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
-                    child: Text(
-                      "Time",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: AppTheme.lightTheme.primaryColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+              Padding(
+                padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 8),
+                child: Text(
+                  "Category",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: AppTheme.lightTheme.primaryColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  FilledButton(
-                    onPressed: () async {
-                      _showTimePicker();
-                    },
-                    child: Row(
-                      children: [
-                        Icon(Icons.watch_later_outlined, size: 20),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            _selectedTime.format(context),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:
+                      [
+                        TodoCategory.learning,
+                        TodoCategory.work,
+                        TodoCategory.personal,
+                      ].map((cat) {
+                        return ChoiceChip(
+                          label: Text(
+                            cat.name,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              fontSize: 17,
+                              color: _selectedCategory == cat
+                                  ? Colors.white
+                                  : AppColors.textPrimary,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                          selected: _selectedCategory == cat,
+                          onSelected: (value) {
+                            setState(() {
+                              _selectedCategory = cat;
+                            });
+                          },
+                          selectedColor: AppColors.primary,
+                          checkmarkColor: Colors.white,
+                          side: BorderSide(color: AppColors.border),
+                        );
+                      }).toList(),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 8),
+                child: Text(
+                  "Priority",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: AppTheme.lightTheme.primaryColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:
+                      [
+                        TodoPriority.low,
+                        TodoPriority.medium,
+                        TodoPriority.high,
+                      ].map((prio) {
+                        return ChoiceChip(
+                          label: Text(
+                            prio.name,
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: _selectedPriority == prio
+                                  ? Colors.white
+                                  : AppColors.textPrimary,
+                            ),
+                          ),
+                          selected: _selectedPriority == prio,
+                          onSelected: (value) {
+                            setState(() {
+                              _selectedPriority = prio;
+                            });
+                          },
+                          selectedColor: AppColors.primary,
+                          checkmarkColor: Colors.white,
+                          side: BorderSide(color: AppColors.border),
+                        );
+                      }).toList(),
+                ),
               ),
             ],
           ),
           Padding(
-            padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 8),
-            child: Text(
-              "Category",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: AppTheme.lightTheme.primaryColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children:
-                  [
-                    TodoCategory.learning,
-                    TodoCategory.work,
-                    TodoCategory.personal,
-                  ].map((cat) {
-                    return ChoiceChip(
-                      label: Text(
-                        cat.name,
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: _selectedCategory == cat
-                              ? Colors.white
-                              : AppColors.textPrimary,
-                        ),
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 12),
+            child: FilledButton(
+              onPressed: () {},
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.save),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Save Todo",
+                      style: TextStyle(
+                        fontSize: 18,
+                        // fontWeight: FontWeight.bold,
                       ),
-                      selected: _selectedCategory == cat,
-                      onSelected: (value) {
-                        setState(() {
-                          _selectedCategory = cat;
-                        });
-                      },
-                      selectedColor: AppColors.primary,
-                      checkmarkColor: Colors.white,
-                      side: BorderSide(color: AppColors.border),
-                    );
-                  }).toList(),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 8),
-            child: Text(
-              "Priority",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: AppTheme.lightTheme.primaryColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children:
-                  [
-                    TodoPriority.low,
-                    TodoPriority.medium,
-                    TodoPriority.high,
-                  ].map((prio) {
-                    return ChoiceChip(
-                      label: Text(
-                        prio.name,
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: _selectedPriority == prio
-                              ? Colors.white
-                              : AppColors.textPrimary,
-                        ),
-                      ),
-                      selected: _selectedPriority == prio,
-                      onSelected: (value) {
-                        setState(() {
-                          _selectedPriority = prio;
-                        });
-                      },
-                      selectedColor: AppColors.primary,
-                      checkmarkColor: Colors.white,
-                      side: BorderSide(color: AppColors.border),
-                    );
-                  }).toList(),
             ),
           ),
         ],
