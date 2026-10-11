@@ -27,6 +27,7 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
+  TimeOfDay _selectedTime = TimeOfDay.now();
   String get _date {
     List<String> months = [
       "Jan",
@@ -90,31 +91,114 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
               controller: descriptionController,
             ),
           ),
-          TextButton(
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return CalendarDatePicker(
-                    initialDate: _selectedDate,
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(2100),
-                    onDateChanged: (value) {
-                      setState(() {
-                        _selectedDate = value;
-                      });
-                      Navigator.pop(context);
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
+                    child: Text(
+                      "Date",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: AppTheme.lightTheme.primaryColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  FilledButton(
+                    onPressed: () async {
+                      _showDatePicker();
                     },
-                  );
-                },
-              );
-            },
-            child: Row(
-              children: [Icon(Icons.calendar_month_outlined), Text(_date)],
-            ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.calendar_month_outlined, size: 20),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            _date,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
+                    child: Text(
+                      "Time",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: AppTheme.lightTheme.primaryColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  FilledButton(
+                    onPressed: () async {
+                      _showTimePicker();
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.watch_later_outlined, size: 20),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            _selectedTime.format(context),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),
     );
+  }
+
+  Future<void> _showDatePicker() async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(3000),
+      initialDate: _selectedDate,
+    );
+    if (picked != null) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
+
+  Future<void> _showTimePicker() async {
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null) {
+      setState(() {
+        _selectedTime = picked;
+      });
+    }
   }
 }
