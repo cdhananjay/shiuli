@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shiuli/constants.dart';
 import 'package:shiuli/db.dart';
 import 'package:shiuli/models/todo.dart';
+import 'package:shiuli/notifiers.dart';
 import 'package:shiuli/theme.dart';
 
 class NewTodoPage extends StatelessWidget {
@@ -386,6 +387,7 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
         completed: false,
       ),
     );
+    todaysTodosNotifier.value = await AppDatabase.instance.fetchTodaysTodos();
   }
 
   Future<void> _showDatePicker() async {
