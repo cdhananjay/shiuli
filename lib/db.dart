@@ -62,9 +62,11 @@ class AppDatabase {
     return result.map((json) => Todo.fromJson(json)).toList();
   }
 
-   void setCompletedStatus(int id, bool status) async {
+  void setCompletedStatus(int id, bool status) async {
     final db = await instance.database;
-    await db.update(tableName, {completedField: status ? 1 : 0}, where: "$idField = '$id'");
+    await db.update(tableName, {
+      completedField: status ? 1 : 0,
+    }, where: "$idField = '$id'");
   }
 
   Future<void> close() async {
