@@ -49,7 +49,7 @@ class AppDatabase {
     return result.map((json) => Todo.fromJson(json)).toList();
   }
 
-  Future<List<Todo?>> fetchTodaysTodos() async {
+  Future<List<Todo>> fetchTodaysTodos() async {
     final today = DateTime.now();
     final tomorrow = today.add(Duration(days: 1));
     final db = await instance.database;

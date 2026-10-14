@@ -142,7 +142,7 @@ class _TodaysAllTodosState extends State<TodaysAllTodos> {
         builder: (context, value, child) {
           return Column(
             children: value.map((todo) {
-              return TodoItem(todo: todo!);
+              return TodoItem(todo: todo);
             }).toList(),
           );
         },
