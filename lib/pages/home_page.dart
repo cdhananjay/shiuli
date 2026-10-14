@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:shiuli/constants.dart';
 import 'package:shiuli/db.dart';
