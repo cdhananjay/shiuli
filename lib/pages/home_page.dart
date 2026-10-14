@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:shiuli/constants.dart';
 import 'package:shiuli/db.dart';
@@ -142,7 +144,10 @@ class _TodaysAllTodosState extends State<TodaysAllTodos> {
         builder: (context, value, child) {
           return Column(
             children: value.map((todo) {
-              return TodoItem(todo: todo);
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(8, 3, 8, 3),
+                child: TodoItem(todo: todo),
+              );
             }).toList(),
           );
         },
@@ -165,7 +170,49 @@ class _TodoItemState extends State<TodoItem> {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
-      title: Text(widget.todo.title),
+      controlAffinity: ListTileControlAffinity.leading,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: AppColors.border),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      tileColor: AppColors.card,
+      title: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
+        child: Text(
+          widget.todo.title,
+          style: TextStyle(
+            fontSize: 17,
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Chip(
+            avatar: Icon(Icons.circle, color: AppColors.primary),
+            label: Text(widget.todo.category.name),
+            backgroundColor: AppColors.background,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            side: BorderSide(color: AppColors.border),
+            visualDensity: VisualDensity(vertical: -3),
+          ),
+          Row(
+            spacing: 5,
+            children: [
+              Icon(Icons.access_time_outlined, size: 15),
+              Text(
+                TimeOfDay.fromDateTime(widget.todo.dateTime).format(context),
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      selectedTileColor: Colors.black,
       value: widget.todo.completed,
       onChanged: (value) async {
         setState(() {
