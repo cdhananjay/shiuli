@@ -43,7 +43,69 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(child: TodaysTasks()),
+      body: Column(children: [DailyProgress(), TodaysTasks()]),
+    );
+  }
+}
+
+class DailyProgress extends StatelessWidget {
+  const DailyProgress({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: ValueListenableBuilder(
+        valueListenable: todaysTodosNotifier,
+        builder: (context, value, child) {
+          return Card(
+            elevation: 0,
+            color: AppColors.leafGreen,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Your daily progress",
+                    style: TextStyle(
+                      color: AppColors.textPrimary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                    ),
+                  ),
+                  Text(
+                    value.isEmpty
+                        ? "No tasks for today"
+                        : "${value.where((todo) {
+                            return todo.completed;
+                          }).length} of ${value.length} tasks completed",
+                    style: TextStyle(
+                      color: AppColors.textPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                    child: LinearProgressIndicator(
+                      value: value.isEmpty
+                          ? 1
+                          : value.where((todo) {
+                                  return todo.completed;
+                                }).length /
+                                value.length,
+                      backgroundColor: AppColors.card,
+                      minHeight: 15,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

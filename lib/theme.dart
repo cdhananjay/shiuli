@@ -26,9 +26,10 @@ class AppTheme {
 
       cardTheme: CardThemeData(
         color: AppColors.card,
-        elevation: 1,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: AppColors.border),
+          borderRadius: BorderRadius.circular(16),
+        ),
       ),
 
       elevatedButtonTheme: ElevatedButtonThemeData(
