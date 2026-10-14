@@ -57,7 +57,7 @@ class AppDatabase {
       tableName,
       where:
           "$dateTimeField > '${DateTime(today.year, today.month, today.day).toIso8601String()}' AND $dateTimeField < '${DateTime(tomorrow.year, tomorrow.month, tomorrow.day).toIso8601String()}'",
-      orderBy: "$dateTimeField DESC",
+      orderBy: dateTimeField,
     );
     return result.map((json) => Todo.fromJson(json)).toList();
   }

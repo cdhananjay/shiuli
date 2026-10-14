@@ -110,10 +110,41 @@ class _TodaysTasksState extends State<TodaysTasks> {
         ),
         switch (_selected) {
           "All" => TodaysAllTodos(),
-          "Pending" => Text("Pending"),
-          _ => Text("Completed"),
+          "Pending" => TodaysTasksFilteredByCompletedStatus(
+            completedStatus: false,
+          ),
+          _ => TodaysTasksFilteredByCompletedStatus(completedStatus: true),
         },
       ],
+    );
+  }
+}
+
+class TodaysTasksFilteredByCompletedStatus extends StatelessWidget {
+  const TodaysTasksFilteredByCompletedStatus({
+    super.key,
+    required this.completedStatus,
+  });
+  final bool completedStatus;
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: todaysTodosNotifier,
+      builder: (context, value, child) {
+        return Column(
+          children: value
+              .where((todo) {
+                return todo.completed == completedStatus;
+              })
+              .map((todo) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 3, 8, 3),
+                  child: TodoItem(todo: todo),
+                );
+              })
+              .toList(),
+        );
+      },
     );
   }
 }
