@@ -387,7 +387,9 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
         completed: false,
       ),
     );
-    todaysTodosNotifier.value = await AppDatabase.instance.fetchTodaysTodos();
+    todaysTodosNotifier.value = await AppDatabase.instance.getTodosByDate(
+      DateTime.now(),
+    );
   }
 
   Future<void> _showDatePicker() async {

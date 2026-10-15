@@ -49,24 +49,23 @@ class AppDatabase {
     return result.map((json) => Todo.fromJson(json)).toList();
   }
 
-  Future<List<Todo>> fetchTodaysTodos() async {
-    final today = DateTime.now();
-    final tomorrow = today.add(Duration(days: 1));
-    final db = await instance.database;
-    final result = await db.query(
-      tableName,
-      where:
-          "$dateTimeField > '${DateTime(today.year, today.month, today.day).toIso8601String()}' AND $dateTimeField < '${DateTime(tomorrow.year, tomorrow.month, tomorrow.day).toIso8601String()}'",
-      orderBy: dateTimeField,
-    );
-    return result.map((json) => Todo.fromJson(json)).toList();
-  }
-
   void setCompletedStatus(int id, bool status) async {
     final db = await instance.database;
     await db.update(tableName, {
       completedField: status ? 1 : 0,
     }, where: "$idField = '$id'");
+  }
+
+  Future<List<Todo>> getTodosByDate(DateTime date) async {
+    final nextDay = date.add(Duration(days: 1));
+    final db = await instance.database;
+    final result = await db.query(
+      tableName,
+      where:
+          "$dateTimeField > '${DateTime(date.year, date.month, date.day).toIso8601String()}' AND $dateTimeField < '${DateTime(nextDay.year, nextDay.month, nextDay.day).toIso8601String()}'",
+      orderBy: dateTimeField,
+    );
+    return result.map((json) => Todo.fromJson(json)).toList();
   }
 
   Future<void> close() async {

@@ -224,7 +224,9 @@ class _TodaysAllTodosState extends State<TodaysAllTodos> {
   }
 
   Future<void> _fetchTodos() async {
-    todaysTodosNotifier.value = await AppDatabase.instance.fetchTodaysTodos();
+    todaysTodosNotifier.value = await AppDatabase.instance.getTodosByDate(
+      DateTime.now(),
+    );
   }
 
   @override
@@ -309,8 +311,9 @@ class _TodoItemState extends State<TodoItem> {
         setState(() {
           AppDatabase.instance.setCompletedStatus(widget.todo.id!, value!);
         });
-        todaysTodosNotifier.value = await AppDatabase.instance
-            .fetchTodaysTodos();
+        todaysTodosNotifier.value = await AppDatabase.instance.getTodosByDate(
+          DateTime.now(),
+        );
       },
     );
   }
