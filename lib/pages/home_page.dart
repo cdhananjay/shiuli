@@ -43,7 +43,9 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(children: [DailyProgress(), TodaysTasks()]),
+      body: SingleChildScrollView(
+        child: Column(children: [DailyProgress(), TodaysTasks()]),
+      ),
     );
   }
 }

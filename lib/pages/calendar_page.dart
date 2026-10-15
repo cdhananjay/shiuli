@@ -18,7 +18,7 @@ class CalendarPage extends StatelessWidget {
           ],
         ),
       ),
-      body: Body(),
+      body: SingleChildScrollView(child: Body()),
     );
   }
 }
