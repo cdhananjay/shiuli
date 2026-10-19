@@ -121,13 +121,16 @@ class _TodoItemState extends State<TodoItem> {
         side: BorderSide(color: AppColors.border),
         borderRadius: BorderRadius.circular(15),
       ),
-      tileColor: AppColors.card,
+      tileColor: widget.todo.completed ? AppColors.leafGreen : AppColors.card,
       title: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
         child: Text(
           widget.todo.title,
           style: TextStyle(
-            decoration: TextDecoration.lineThrough,
+            decorationThickness: 3,
+            decoration: widget.todo.completed
+                ? TextDecoration.lineThrough
+                : null,
             fontSize: 17,
             color: AppColors.textPrimary,
             fontWeight: FontWeight.w500,
