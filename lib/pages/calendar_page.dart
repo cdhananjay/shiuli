@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shiuli/constants.dart';
 import 'package:shiuli/db.dart';
 import 'package:shiuli/models/todo.dart';
-import 'package:shiuli/pages/home_page.dart';
 
 class CalendarPage extends StatelessWidget {
   const CalendarPage({super.key});
@@ -98,6 +97,64 @@ class TodosForDay extends StatelessWidget {
             children: todos.map((todo) {
               return TodoItem(todo: todo);
             }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TodoItem extends StatefulWidget {
+  final Todo todo;
+  const TodoItem({super.key, required this.todo});
+
+  @override
+  State<TodoItem> createState() => _TodoItemState();
+}
+
+class _TodoItemState extends State<TodoItem> {
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      enabled: false,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: AppColors.border),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      tileColor: AppColors.card,
+      title: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
+        child: Text(
+          widget.todo.title,
+          style: TextStyle(
+            decoration: TextDecoration.lineThrough,
+            fontSize: 17,
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Chip(
+            avatar: Icon(Icons.circle, color: AppColors.primary),
+            label: Text(widget.todo.category.name),
+            backgroundColor: AppColors.background,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            side: BorderSide(color: AppColors.border),
+            visualDensity: VisualDensity(vertical: -3),
+          ),
+          Row(
+            spacing: 5,
+            children: [
+              Icon(Icons.access_time_outlined, size: 15),
+              Text(
+                TimeOfDay.fromDateTime(widget.todo.dateTime).format(context),
+              ),
+            ],
           ),
         ],
       ),
