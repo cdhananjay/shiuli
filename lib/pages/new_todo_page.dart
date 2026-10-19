@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shiuli/constants.dart';
-import 'package:shiuli/db.dart';
+import 'package:shiuli/utils/constants.dart';
+import 'package:shiuli/data/db.dart';
 import 'package:shiuli/models/todo.dart';
-import 'package:shiuli/notifiers.dart';
-import 'package:shiuli/theme.dart';
+import 'package:shiuli/data/notifiers.dart';
+import 'package:shiuli/utils/theme.dart';
+import 'package:shiuli/widgets/date_picker_button.dart';
+import 'package:shiuli/widgets/header_text.dart';
+import 'package:shiuli/widgets/save_todo_button.dart';
+import 'package:shiuli/widgets/time_picker_button.dart';
 
 class NewTodoPage extends StatelessWidget {
   const NewTodoPage({super.key});
@@ -35,21 +39,8 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
   TimeOfDay _selectedTime = TimeOfDay.now();
   TodoCategory _selectedCategory = TodoCategory.work;
   TodoPriority _selectedPriority = TodoPriority.medium;
+
   String get _date {
-    List<String> months = [
-      "Jan",
-      "Feb",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
     return "${months[_selectedDate.month - 1]} ${_selectedDate.day}, ${_selectedDate.year}";
   }
 
@@ -70,15 +61,7 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
                   children: [
                     Padding(
                       padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
-                      child: Text(
-                        "Todo Title*",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: AppTheme.lightTheme.primaryColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: HeaderText("Todo Title*"),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 10.0),
@@ -96,15 +79,7 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
                     ),
                     Padding(
                       padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
-                      child: Text(
-                        "Description",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: AppTheme.lightTheme.primaryColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: HeaderText("Description"),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 10.0),
@@ -128,35 +103,13 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
                                 10.0,
                                 3,
                               ),
-                              child: Text(
-                                "Date",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: AppTheme.lightTheme.primaryColor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              child: HeaderText("Date"),
                             ),
-                            FilledButton(
+                            DatePickerButton(
+                              date: _date,
                               onPressed: () async {
                                 _showDatePicker();
                               },
-                              child: Row(
-                                children: [
-                                  Icon(Icons.calendar_month_outlined, size: 20),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      _date,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ),
                           ],
                         ),
@@ -171,35 +124,13 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
                                 10.0,
                                 3,
                               ),
-                              child: Text(
-                                "Time",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: AppTheme.lightTheme.primaryColor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              child: HeaderText("Time"),
                             ),
-                            FilledButton(
+                            TimePickerButton(
+                              selectedTime: _selectedTime,
                               onPressed: () async {
                                 _showTimePicker();
                               },
-                              child: Row(
-                                children: [
-                                  Icon(Icons.watch_later_outlined, size: 20),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      _selectedTime.format(context),
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ),
                           ],
                         ),
@@ -207,15 +138,7 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
                     ),
                     Padding(
                       padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 8),
-                      child: Text(
-                        "Category",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: AppTheme.lightTheme.primaryColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: HeaderText("Category"),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
@@ -252,15 +175,7 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
                     ),
                     Padding(
                       padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 8),
-                      child: Text(
-                        "Priority",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: AppTheme.lightTheme.primaryColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: HeaderText("Priority"),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
@@ -299,30 +214,7 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 8, 8, 12),
-                  child: FilledButton(
-                    onPressed: _title.isEmpty || _title.trim() == ""
-                        ? null
-                        : () {
-                            _saveTodo();
-                            Navigator.pop(context);
-                          },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.save),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Save Todo",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  child: SaveTodoButton(title: _title, saveTodoFn: _saveTodo),
                 ),
               ],
             ),

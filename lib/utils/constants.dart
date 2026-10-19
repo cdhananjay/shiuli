@@ -10,3 +10,18 @@ class AppColors {
   static const Color textSecondary = Color(0xFF687C6B);
   static const Color border = Color(0xFFEDE4D8);
 }
+
+List<String> months = [
+  "Jan",
+  "Feb",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];

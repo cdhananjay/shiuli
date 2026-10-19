@@ -3,7 +3,7 @@ import 'package:shiuli/pages/calendar_page.dart';
 import 'package:shiuli/pages/home_page.dart';
 import 'package:shiuli/pages/new_todo_page.dart';
 import 'package:shiuli/pages/profile_page.dart';
-import 'package:shiuli/theme.dart';
+import 'package:shiuli/utils/theme.dart';
 
 void main() {
   runApp(const MyApp());

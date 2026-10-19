@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shiuli/constants.dart';
+import 'package:shiuli/utils/constants.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
