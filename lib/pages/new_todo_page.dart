@@ -30,6 +30,7 @@ class NewTodoPageBody extends StatefulWidget {
 class _NewTodoPageBodyState extends State<NewTodoPageBody> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
+  String _title = "";
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
   TodoCategory _selectedCategory = TodoCategory.work;
@@ -65,7 +66,7 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
               Padding(
                 padding: EdgeInsetsGeometry.fromLTRB(10.0, 10.0, 10.0, 3),
                 child: Text(
-                  "Todo Title",
+                  "Todo Title*",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: AppTheme.lightTheme.primaryColor,
@@ -77,10 +78,16 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 10.0),
                 child: TextField(
+                  autofocus: true,
                   decoration: InputDecoration(
                     hintText: "What needs to be done?",
                   ),
                   controller: _titleController,
+                  onChanged: (value) {
+                    setState(() {
+                      _title = value;
+                    });
+                  },
                 ),
               ),
               Padding(
@@ -287,66 +294,12 @@ class _NewTodoPageBodyState extends State<NewTodoPageBody> {
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 8, 8, 12),
             child: FilledButton(
-              onPressed: () {
-                if (_titleController.text.isEmpty ||
-                    _titleController.text.trim() == "") {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        content: Text(
-                          "Title cannot be empty.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                        actionsAlignment: MainAxisAlignment.center,
-                        contentPadding: EdgeInsets.fromLTRB(10, 12, 10, 12),
-                        actionsPadding: EdgeInsets.fromLTRB(8, 2, 8, 2),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: Text('Okay'),
-                          ),
-                        ],
-                      );
+              onPressed: _title.isEmpty || _title.trim() == ""
+                  ? null
+                  : () {
+                      _saveTodo();
+                      Navigator.pop(context);
                     },
-                  );
-                  return;
-                }
-                if (_descriptionController.text.isEmpty ||
-                    _descriptionController.text.trim() == "") {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        content: Text(
-                          "Description cannot be empty.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                        actionsAlignment: MainAxisAlignment.center,
-                        contentPadding: EdgeInsets.fromLTRB(10, 12, 10, 12),
-                        actionsPadding: EdgeInsets.fromLTRB(8, 2, 8, 2),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: Text('Okay'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                  return;
-                }
-                _saveTodo();
-                Navigator.pop(context);
-              },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

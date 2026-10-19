@@ -83,7 +83,7 @@ class Todo {
   Todo({
     this.id,
     required this.title,
-    required this.description,
+    this.description,
     required this.dateTime,
     required this.category,
     required this.priority,
@@ -91,7 +91,7 @@ class Todo {
   });
   final int? id;
   final String title;
-  final String description;
+  final String? description;
   final DateTime dateTime;
   final TodoCategory category;
   final TodoPriority priority;
