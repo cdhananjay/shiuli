@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shiuli/pages/calendar_page.dart';
 import 'package:shiuli/pages/home_page.dart';
 import 'package:shiuli/pages/new_todo_page.dart';
-import 'package:shiuli/pages/profile_page.dart';
 import 'package:shiuli/utils/theme.dart';
 
 void main() {
@@ -31,7 +30,7 @@ class MainHome extends StatefulWidget {
 }
 
 class _MainHomeState extends State<MainHome> {
-  final List<Widget> _pages = [HomePage(), CalendarPage(), ProfilePage()];
+  final List<Widget> _pages = [HomePage(), CalendarPage()];
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,6 @@ class _MainHomeState extends State<MainHome> {
             icon: Icon(Icons.calendar_month_outlined),
             label: "Calendar",
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
         onTap: (value) {
           setState(() {
